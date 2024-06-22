@@ -13,7 +13,7 @@ Ditenagai oleh WYSIWYG editor
 # Notes On Usage
 The default Mathjax syntax uses inline mode to use display mode type -- \displaystyle -- before the equation
 
-# Anggota
+# Anggota Kelompok 10
 - Akmal Alifansyah – 2602178331 
 - Edward Thong – 2602182676 
 - Melvin Nathaniel - 2602178205 
