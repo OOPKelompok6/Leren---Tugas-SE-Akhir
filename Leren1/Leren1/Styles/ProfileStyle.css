@@ -1,0 +1,66 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #eef;
+    margin: 0;
+    padding: 0;
+}
+
+.containt {
+    width: 30%;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-top: 40px;
+}
+
+    .containt h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+    }
+
+    .containt div {
+        margin-bottom: 15px;
+    }
+
+    .containt strong {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .containt label {
+        display: inline-block;
+        margin-left: 10px;
+        color: #555;
+        font-size: 1rem;
+    }
+
+.btnlogout {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 13px;
+    margin-bottom: 10px;
+}
+
+.btnlogout .buttons {
+    background-color: lightskyblue;
+    border-radius: 8px;
+    border: none;
+    width: 458px;
+    height: 30px;
+    font-size: 17px;
+}
+
+.btnlogout .buttons:hover {
+    background-color: deepskyblue;
+    color: white;
+}
+
+
+
+

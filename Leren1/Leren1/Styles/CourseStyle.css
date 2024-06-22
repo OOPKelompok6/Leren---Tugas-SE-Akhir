@@ -1,0 +1,67 @@
+﻿body {
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card_progress {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    position: relative;
+    width: 1000px;
+    height: 190px;
+    display: flex;
+}
+
+
+    .card_progress img {
+        max-width: 170px;
+        max-height: 170px;
+        margin-right: 10px;
+        margin-left: 3px;
+        margin-right: 25px;
+        margin-top: 5px;
+    }
+
+.card_text {
+    flex: 1;
+}
+
+    .card_text h3 {
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    .card_text span {
+        margin-top: 3px;
+        margin-bottom: 5px;
+        text-align: justify;
+        font-size: 15px;
+    }
+
+.custom-button {
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
+}
+
+    .custom-button:hover {
+        color: darkslategrey;
+    }
+
+.button-container {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: white;
+}

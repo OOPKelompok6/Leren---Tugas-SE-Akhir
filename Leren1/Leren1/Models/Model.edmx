@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArticleContent">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ContentString" Type="varchar(max)" Nullable="false" />
+          <Property Name="Sections" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticleHeader">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CategoryID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SubjectID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="UserID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ArticleTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryHeader">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SubjectID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CategoryTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubjectHeader">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SubjectTitle" Type="varchar" MaxLength="5100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone_number" Type="int" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArticleContent_ToArticleHeader">
+          <End Role="ArticleHeader" Type="Self.ArticleHeader" Multiplicity="1" />
+          <End Role="ArticleContent" Type="Self.ArticleContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleHeader">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="ArticleContent">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleHeader_ToCategoryHeader">
+          <End Role="CategoryHeader" Type="Self.CategoryHeader" Multiplicity="1" />
+          <End Role="ArticleHeader" Type="Self.ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryHeader">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleHeader_ToSubjectHeader">
+          <End Role="SubjectHeader" Type="Self.SubjectHeader" Multiplicity="1" />
+          <End Role="ArticleHeader" Type="Self.ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectHeader">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleHeader_ToUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ArticleHeader" Type="Self.ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryHeader_ToSubjectHeader">
+          <End Role="SubjectHeader" Type="Self.SubjectHeader" Multiplicity="1" />
+          <End Role="CategoryHeader" Type="Self.CategoryHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectHeader">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="CategoryHeader">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="ArticleContent" EntityType="Self.ArticleContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticleHeader" EntityType="Self.ArticleHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryHeader" EntityType="Self.CategoryHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubjectHeader" EntityType="Self.SubjectHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ArticleContent_ToArticleHeader" Association="Self.FK_ArticleContent_ToArticleHeader">
+            <End Role="ArticleHeader" EntitySet="ArticleHeader" />
+            <End Role="ArticleContent" EntitySet="ArticleContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleHeader_ToCategoryHeader" Association="Self.FK_ArticleHeader_ToCategoryHeader">
+            <End Role="CategoryHeader" EntitySet="CategoryHeader" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleHeader_ToSubjectHeader" Association="Self.FK_ArticleHeader_ToSubjectHeader">
+            <End Role="SubjectHeader" EntitySet="SubjectHeader" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleHeader_ToUser" Association="Self.FK_ArticleHeader_ToUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryHeader_ToSubjectHeader" Association="Self.FK_CategoryHeader_ToSubjectHeader">
+            <End Role="SubjectHeader" EntitySet="SubjectHeader" />
+            <End Role="CategoryHeader" EntitySet="CategoryHeader" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone_number" Type="Int32" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ArticleHeaders" Relationship="DatabaseModel.FK_ArticleHeader_ToUser" FromRole="User" ToRole="ArticleHeader" />
+        </EntityType>
+        <EntityContainer Name="DatabaseEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="ArticleHeaders" EntityType="DatabaseModel.ArticleHeader" />
+          <EntitySet Name="CategoryHeaders" EntityType="DatabaseModel.CategoryHeader" />
+          <EntitySet Name="SubjectHeaders" EntityType="DatabaseModel.SubjectHeader" />
+          <AssociationSet Name="FK_ArticleHeader_ToCategoryHeader" Association="DatabaseModel.FK_ArticleHeader_ToCategoryHeader">
+            <End Role="CategoryHeader" EntitySet="CategoryHeaders" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleHeader_ToSubjectHeader" Association="DatabaseModel.FK_ArticleHeader_ToSubjectHeader">
+            <End Role="SubjectHeader" EntitySet="SubjectHeaders" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleHeader_ToUser" Association="DatabaseModel.FK_ArticleHeader_ToUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ArticleHeader" EntitySet="ArticleHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryHeader_ToSubjectHeader" Association="DatabaseModel.FK_CategoryHeader_ToSubjectHeader">
+            <End Role="SubjectHeader" EntitySet="SubjectHeaders" />
+            <End Role="CategoryHeader" EntitySet="CategoryHeaders" />
+          </AssociationSet>
+          <EntitySet Name="ArticleContents" EntityType="DatabaseModel.ArticleContent" />
+          <AssociationSet Name="FK_ArticleContent_ToArticleHeader" Association="DatabaseModel.FK_ArticleContent_ToArticleHeader">
+            <End Role="ArticleHeader" EntitySet="ArticleHeaders" />
+            <End Role="ArticleContent" EntitySet="ArticleContents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ArticleHeader">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ArticleTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CategoryHeader" Relationship="DatabaseModel.FK_ArticleHeader_ToCategoryHeader" FromRole="ArticleHeader" ToRole="CategoryHeader" />
+          <NavigationProperty Name="SubjectHeader" Relationship="DatabaseModel.FK_ArticleHeader_ToSubjectHeader" FromRole="ArticleHeader" ToRole="SubjectHeader" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_ArticleHeader_ToUser" FromRole="ArticleHeader" ToRole="User" />
+          <NavigationProperty Name="ArticleContents" Relationship="DatabaseModel.FK_ArticleContent_ToArticleHeader" FromRole="ArticleHeader" ToRole="ArticleContent" />
+        </EntityType>
+        <EntityType Name="CategoryHeader">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ArticleHeaders" Relationship="DatabaseModel.FK_ArticleHeader_ToCategoryHeader" FromRole="CategoryHeader" ToRole="ArticleHeader" />
+          <NavigationProperty Name="SubjectHeader" Relationship="DatabaseModel.FK_CategoryHeader_ToSubjectHeader" FromRole="CategoryHeader" ToRole="SubjectHeader" />
+        </EntityType>
+        <EntityType Name="SubjectHeader">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectTitle" Type="String" Nullable="false" MaxLength="5100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ArticleHeaders" Relationship="DatabaseModel.FK_ArticleHeader_ToSubjectHeader" FromRole="SubjectHeader" ToRole="ArticleHeader" />
+          <NavigationProperty Name="CategoryHeaders" Relationship="DatabaseModel.FK_CategoryHeader_ToSubjectHeader" FromRole="SubjectHeader" ToRole="CategoryHeader" />
+        </EntityType>
+        <Association Name="FK_ArticleHeader_ToCategoryHeader">
+          <End Type="DatabaseModel.CategoryHeader" Role="CategoryHeader" Multiplicity="1" />
+          <End Type="DatabaseModel.ArticleHeader" Role="ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryHeader">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleHeader_ToSubjectHeader">
+          <End Type="DatabaseModel.SubjectHeader" Role="SubjectHeader" Multiplicity="1" />
+          <End Type="DatabaseModel.ArticleHeader" Role="ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectHeader">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleHeader_ToUser">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.ArticleHeader" Role="ArticleHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArticleHeader">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryHeader_ToSubjectHeader">
+          <End Type="DatabaseModel.SubjectHeader" Role="SubjectHeader" Multiplicity="1" />
+          <End Type="DatabaseModel.CategoryHeader" Role="CategoryHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectHeader">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="CategoryHeader">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ArticleContent">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ContentString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ArticleID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ArticleHeader" Relationship="DatabaseModel.FK_ArticleContent_ToArticleHeader" FromRole="ArticleContent" ToRole="ArticleHeader" />
+          <Property Name="Sections" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArticleContent_ToArticleHeader">
+          <End Type="DatabaseModel.ArticleHeader" Role="ArticleHeader" Multiplicity="1" />
+          <End Type="DatabaseModel.ArticleContent" Role="ArticleContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleHeader">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="ArticleContent">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities1">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticleHeaders">
+            <EntityTypeMapping TypeName="DatabaseModel.ArticleHeader">
+              <MappingFragment StoreEntitySet="ArticleHeader">
+                <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryHeaders">
+            <EntityTypeMapping TypeName="DatabaseModel.CategoryHeader">
+              <MappingFragment StoreEntitySet="CategoryHeader">
+                <ScalarProperty Name="CategoryTitle" ColumnName="CategoryTitle" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubjectHeaders">
+            <EntityTypeMapping TypeName="DatabaseModel.SubjectHeader">
+              <MappingFragment StoreEntitySet="SubjectHeader">
+                <ScalarProperty Name="SubjectTitle" ColumnName="SubjectTitle" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticleContents">
+            <EntityTypeMapping TypeName="DatabaseModel.ArticleContent">
+              <MappingFragment StoreEntitySet="ArticleContent">
+                <ScalarProperty Name="Sections" ColumnName="Sections" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="ContentString" ColumnName="ContentString" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
