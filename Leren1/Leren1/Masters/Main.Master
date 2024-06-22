@@ -1,0 +1,158 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Leren1.Masters.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Mathjax CDN -->
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../Styles/MasterStyle.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap" rel="stylesheet">
+    <title>Welcome To Leren</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar bg-info">
+        <div class="d-flex flex-row flex-grow-1">
+            <div class="p-2">
+                <img class="p-0 img-fluid" src="../../Assets/Picture/LerenLogo.png" />
+            </div>
+            <div class="p-2">
+                <a href="#" class="btn outfit-SemiBolds">Courses</a>
+            </div>
+            <div class="p-2 ms-auto ps-auto">
+                <a href="../Pages/SignInPage.aspx" class="btn outfit-SemiBolds">Log In / Sign Up</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+    <main class="m-3">
+        <form id="form1" runat="server">
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </form>
+    </main>
+    <footer class="footer mt-auto">
+        <nav class="navbar bg-dark text-white p-0 m-0 bottom-0">
+            <div class="d-flex flex-column flex-grow-1">
+                <div class="d-flex flex-row justify-content-evenly">
+                    <div class="m-4">
+                        <a href="#" class="btn">
+                            <h5 class="text-white outfit-Lights">Home</h5>
+                        </a>
+                    </div>
+                    <div class="m-4">
+                        <a href="#" class="btn text-white outfit-Lights">
+                            <h5 class="text-white outfit-Lights">Donate Us</h5>
+                        </a>
+                    </div>
+                    <div class="m-4">
+                        <a href="#" class="btn text-white outfit-Lights">
+                            <h5 class="text-white outfit-Lights">About Us</h5>
+                        </a>
+                    </div>
+                    <div class="m-4">
+                        <a href="#" class="btn text-white outfit-Lights">
+                            <h5 class="text-white outfit-Lights">Career</h5>
+                        </a>
+                    </div>
+                    <div class="m-4">
+                        <a href="#" class="btn text-white outfit-Lights">
+                            <h5 class="text-white outfit-Lights">Profile</h5>
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-evenly">
+                    <div class="d-flex flex-column pt-4 my-2">
+                        <div>
+                            <h6 class="text-white text-center">
+                                Nothing last forever,
+                            </h6>
+                            <h6 class="text-white text-center">
+                                We can change the future!
+                            </h6>
+                        </div>
+                        <div class="m-4">
+                            <h6 class="text-white text-center outfit-Lights">
+                                Our mission is to provide a free, world-class
+                            </h6>
+                            <h6 class="text-white text-center outfit-Lights">
+                                education to anyone, anywhere.
+                            </h6>
+                            <h6 class="text-white text-center outfit-Lights">
+                                Leren is a 501(c)(3) nonprofit organization.
+                            </h6>
+                            <h6 class="text-white text-center outfit-Lights">
+                                Donate or Volunteer today!
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="d-flex m-4">
+                            <div class="p-2 text-center">
+                                <img class="img-cfg" src="../../Assets/Picture/20110418163219583-removebg-preview.png" />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column m-4">
+                            <div class="p-2 text-center">
+                                <img class="img-cfg" src="../../Assets/Picture/Group%208.png" />
+                            </div>
+                            <div class="p-2 text-center">
+                                <img class="img-cfg" src="../../Assets/Picture/image-removebg-preview%201.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column mt-4 mx-4 mb-1">
+                        <div class="d-flex flex-column">
+                            <div class="p-2 text-center">
+                                <img  class="img-cfg" src="../../Assets/Picture/djarum-removebg-preview%201.png" />
+                            </div>
+                            <div class="p-2 text-center">
+                                <img  class="img-cfg" src="../../Assets/Picture/1613460981-removebg-preview%201.png" />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-evenly m-2">
+                            <div class="p-2">
+                                <a href="https://www.youtube.com" class="btn img-fluid img-social-icons">
+                                    <img src="../../Assets/Picture/Social%20Icons-2.png" />
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <a href="https://www.facebook.com" class="btn img-fluid img-social-icons">
+                                    <img src="../../Assets/Picture/Social%20Icons.png" />
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <a href="https://www.discord.com" class="btn img-fluid">
+                                    <img src="../../Assets/Picture/Social%20Icons-1.png" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-0 left-0 m-0 p-0">
+                    <h6 class="outfit-Lights text-white text-left">
+                        © 2024 Leren 
+                    </h6>
+                </div>
+            </div>
+        </nav>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
