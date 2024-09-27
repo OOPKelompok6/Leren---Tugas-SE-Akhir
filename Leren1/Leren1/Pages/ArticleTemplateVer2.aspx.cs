@@ -17,9 +17,9 @@ namespace Leren1.Pages
         {
             DatabaseEntities1 db = DatabaseSingleton.GetInstance();
             String curArticleID = Request["ID"];
-            ArticleContent d = (from c in db.ArticleContents where c.ArticleID == curArticleID select c).ToList().FirstOrDefault();
+            ArticleContent d = ArticlesRepository.getArticleContentFromID(curArticleID);
             String contentString = d.ContentString;
-            mainTitle.InnerHtml = (from s in db.ArticleHeaders where s.ArticleID == curArticleID select s.ArticleTitle).FirstOrDefault();
+            mainTitle.InnerHtml = ArticlesRepository.getArticleHeaderFromID(curArticleID).ArticleTitle;
 
             for (int i = 0; i < d.Sections; i++)
             {

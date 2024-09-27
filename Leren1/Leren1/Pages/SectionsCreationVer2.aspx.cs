@@ -12,6 +12,7 @@ using Ganss.Xss;
 using Leren1.Repository;
 using AngleSharp.Io;
 using System.Data.Entity.Migrations;
+using Leren1.Factory;
 
 namespace Leren1.Pages
 {
@@ -30,7 +31,7 @@ namespace Leren1.Pages
                 {
                     String articleId = Request["ID"];
                     DatabaseEntities1 db = DatabaseSingleton.GetInstance();
-                    MainTextEditor.InnerHtml = (from d in db.ArticleContents where d.ArticleID == articleId select d.ContentString).FirstOrDefault().ToString();
+                    MainTextEditor.InnerHtml = ArticlesRepository.getArticleContentFromID(articleId).ContentString;
                 }
             }
 		}
@@ -56,29 +57,20 @@ namespace Leren1.Pages
 			}
 			else
 			{
-                DatabaseEntities1 db = new DatabaseEntities1();
                 String id = Request["ID"];
                 if (status == 0)
 				{
-                    ArticleContent newContent = new ArticleContent()
-                    {
-                        ArticleID = id,
-                        ContentString = editorContent,
-                        Sections = numOfSections,
-                        ObjectID = GenerateObjectID()
-                    };
-
-                    db.ArticleContents.Add(newContent);
+                    ArticleContent newContent = ArticleContentandHeaderFactory.createContent(id, editorContent, numOfSections, GenerateObjectID());
+                    ArticlesRepository.addContent(newContent);
                 }
 				else
 				{
-                    ArticleContent articleContent = (from d in db.ArticleContents where d.ArticleID == id select d).FirstOrDefault();
+                    ArticleContent articleContent = ArticlesRepository.getArticleContentFromID(id);
                     articleContent.ContentString = editorContent;
                     articleContent.Sections = numOfSections;
-                    db.Entry(articleContent).State = System.Data.Entity.EntityState.Modified;
+                    ArticlesRepository.updateContent(articleContent);
                 }
 
-                db.SaveChanges();
                 Response.Redirect("~/Pages/OperationSuccess.aspx");
 			}
         }

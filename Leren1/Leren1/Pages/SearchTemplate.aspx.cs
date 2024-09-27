@@ -14,11 +14,10 @@ namespace Leren1.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DatabaseEntities1 db = DatabaseSingleton.GetInstance();
             String searchTerm = Request["searchTerm"];
 
             HtmlGenericControl mainContainer = new HtmlGenericControl("div");
-            List<ArticleHeader> articles = (from aS in db.ArticleHeaders where aS.ArticleTitle.Contains(searchTerm) select aS).ToList();
+            List<ArticleHeader> articles = ArticlesRepository.getArticleListFromNames(searchTerm);
 
             if(articles.Count == 0)
             {
@@ -35,14 +34,14 @@ namespace Leren1.Pages
                 mainContainer.Attributes["class"] = "col-sm-8 d-flex flex-column";
                 foreach (ArticleHeader article in articles)
                 {
-                    createResultItems(article, mainContainer, db);
+                    createResultItems(article, mainContainer);
                 }
             }
 
             Results.Controls.Add(mainContainer);
         }
 
-        private void createResultItems(ArticleHeader article, HtmlGenericControl mainContainer, DatabaseEntities1 db)
+        private void createResultItems(ArticleHeader article, HtmlGenericControl mainContainer)
         {
 
             HtmlGenericControl dynamicDiv = new HtmlGenericControl("div");
