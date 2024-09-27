@@ -1,4 +1,6 @@
-﻿using Leren1.Models;
+﻿using Leren1.Factory;
+using Leren1.Masters;
+using Leren1.Models;
 using Leren1.Repository;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace Leren1.Pages
 {
@@ -19,20 +22,19 @@ namespace Leren1.Pages
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            DatabaseEntities1 db = DatabaseSingleton.GetInstance();
 
-            if((from d in db.Users where d.Email == txtEmail.Text select d).ToList().FirstOrDefault() != null)
+            if(UserRepository.selectUserbyEmail(txtEmail.Text) != null)
             {
                 return;
             }
 
             int phoneNum = Convert.ToInt32(PhoneTxt.Text);
-            if ((from d in db.Users where d.Phone_number == phoneNum select d).ToList().FirstOrDefault() != null)
+            if (UserRepository.selectUserbyPhoneNumber(phoneNum) != null)
             {
                 return;
             }
 
-            if((from d in db.Users where d.Name == Nametxt.Text select d).ToList().FirstOrDefault() != null)
+            if(UserRepository.selectUserbyName(Nametxt.Text) != null)
             {
                 return;
             }
@@ -46,20 +48,9 @@ namespace Leren1.Pages
             {
                 return;
             }
+            User user = UserFactory.Create(GenerateID(), Nametxt.Text, txtEmail.Text, Convert.ToInt32(PhoneTxt.Text), DateTime.Parse(DOBTxt.Text), PasswordTxt.Text, RadioButtonList1.SelectedValue);
+            UserRepository.addUser(user);
 
-            User user = new User() 
-            { 
-                Name = Nametxt.Text,
-                Email= txtEmail.Text,
-                Phone_number= Convert.ToInt32(PhoneTxt.Text),
-                Password = PasswordTxt.Text,
-                DOB = DateTime.Parse(DOBTxt.Text),
-                Role = RadioButtonList1.SelectedValue,
-                Id = GenerateID()
-            };
-
-            db.Users.Add(user);
-            db.SaveChanges();
             Response.Redirect("SignInPage.aspx");
         }
 

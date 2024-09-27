@@ -29,8 +29,7 @@ namespace Leren1.Pages
 
             if(((LoggedIn)this.Master).curUser.Role.Equals("Teacher"))
             {
-                DatabaseEntities1 db = DatabaseSingleton.GetInstance();
-                List<ArticleHeader> curTeacherArticles = (from a in db.ArticleHeaders where a.UserID == ((LoggedIn)this.Master).curUser.Id select a).ToList();
+                List<ArticleHeader> curTeacherArticles = ArticlesRepository.getArticleListFromID(((LoggedIn)this.Master).curUser.Id);
 
                 HtmlGenericControl  div = new HtmlGenericControl("div");
                 div.Attributes["class"] = "mx-auto d-flex col-sm-7 flex-row flex-wrap bg-info align-items-center rounded justify-content-center p-3";
@@ -38,7 +37,7 @@ namespace Leren1.Pages
 
                 foreach(ArticleHeader article in curTeacherArticles)
                 {
-                    div.Controls.Add(createCards(article, db));
+                    div.Controls.Add(createCards(article));
                 }
                 ArticlePanels.Controls.Add(div);
             }
@@ -67,9 +66,8 @@ namespace Leren1.Pages
 
         private void updateEvent(object sender, EventArgs e)
         {
-            DatabaseEntities1 db = DatabaseSingleton.GetInstance();
             string articleId = ((Button)sender).ID.Replace("upd_btn_", "");
-            string title = (from d in db.ArticleHeaders where d.ArticleID == articleId select d.ArticleTitle).FirstOrDefault().ToString();
+            string title = (ArticlesRepository.getArticleHeaderFromID(articleId)).ArticleTitle;
             Response.Redirect("~/Pages/SectionsCreationVer2.aspx?Title=" + title + "&ID=" + articleId + "&IsUpdate=1");
         }
 
@@ -78,20 +76,16 @@ namespace Leren1.Pages
             string articleId = ((Button)sender).ID.Replace("del_btn_", "");
             DatabaseEntities1 db = DatabaseSingleton.GetInstance();
 
-            ArticleContent articleObject = (from d in db.ArticleContents where d.ArticleID == articleId select d).FirstOrDefault();
-            db.ArticleContents.Remove(articleObject);
-
-            ArticleHeader article = (from a in db.ArticleHeaders where a.ArticleID == articleId select a).FirstOrDefault(); 
-            db.ArticleHeaders.Remove(article);
-            db.SaveChanges();
+            ArticlesRepository.removeContentByID(articleId);
+            ArticlesRepository.removeHeaderByID(articleId);
 
             Response.Redirect(Request.RawUrl);
         }
 
-        private HtmlGenericControl createCards(ArticleHeader article, DatabaseEntities1 db)
+        private HtmlGenericControl createCards(ArticleHeader article)
         {
-            String subject = (from s in db.SubjectHeaders where article.SubjectID == s.SubjectID select s.SubjectTitle).FirstOrDefault();
-            String category = (from c in db.CategoryHeaders where c.CategoryID == article.CategoryID select c.CategoryTitle).FirstOrDefault();
+            String subject = ArticlesRepository.getArticleSubjectFromID(article.SubjectID);
+            String category = ArticlesRepository.getArticleCategoryFromID(article.CategoryID);
 
             HtmlGenericControl cards = new HtmlGenericControl("div");
             cards.Attributes["class"] = "card w-20 bg-primary rounded mx-2 my-2";

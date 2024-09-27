@@ -25,7 +25,7 @@ namespace Leren1.Pages
             String Password = PasswordTxt.Text;
             bool Check = RememberCb.Checked;
 
-            var user = (from x in db.Users where x.Email.Equals(Email) && x.Password.Equals(Password) select x).FirstOrDefault();
+            var user = UserRepository.login(Email, Password);
 
             if (user != null)
             {
